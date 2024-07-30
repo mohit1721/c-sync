@@ -1,0 +1,175 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.homePageWrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: azure;
+  height: 100vh;
+  /* width: 100vw; */
+
+}
+
+.formWrapper{
+  background: #282a36;
+  padding: 1.5rem;
+  border-radius: 10px;
+  width: 21rem;
+  max-width: 90%;
+}
+footer{
+  position: fixed ;
+  bottom: 0;
+}
+footer a{
+  color: #4aee88;
+  text-decoration: none;
+  border-bottom:1px solid #4aee88;
+  transition: all 0.3s ease-in-out;
+}
+.inputGroup{
+  display: flex;
+  flex-direction: column;
+
+}
+.mainLabel{
+  margin-bottom: 1.5rem;
+  margin-top: 0;
+}
+.homePageLogo{
+  height: 80px;
+  margin-bottom: 1rem;
+}
+.inputBox{
+  padding: 0.5rem;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  margin-bottom: 10px;
+  background: #eee;
+  font-size: 16px;
+  font-weight: bold;
+  color: #282a36;
+}
+.btn{
+  border: none;
+  padding: 10px;
+  border-radius:5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.joinBtn,.leaveBtn{
+  background: #4aee88;
+  width: max-content;
+  /* display: flex; */
+  margin-left: auto;
+}
+.joinBtn:hover ,
+.leaveBtn:hover{
+  background-color: #2b824c;
+  scale: 1.08;
+}
+.createInfo {
+  margin: 0 auto;
+  margin-top: 20px;
+  font-size: 16px;
+  text-align: center;
+}
+.createNewBtn{
+  color: #4aee88;
+  text-decoration: none;
+  border-bottom:1px solid #4aee88;
+  transition: all 0.3s ease-in-out;
+}
+.createNewBtn:hover,
+footer a:hover{
+  color: #4aee88;
+  border-color: #368654;
+}
+
+/* editor page */
+
+.mainWrap{
+  display: grid;
+  grid-template-columns:230px 1fr;
+  /* overflow-y: hidden; */
+  /* height: 100vh; */
+
+}
+.aside{
+  background: #353844;
+  padding: 1rem;
+  color: #eee;
+  display: flex;
+  flex-direction: column;
+  /* height: calc(100vh - 20px); */
+}
+.asideInner{
+flex: 1;
+
+}
+.clientsList{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap:20px;
+}
+.client{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-weight: bold;
+  
+}
+
+
+.logo {
+  border-bottom: 1px solid #424242;
+  padding-bottom: 10px;
+}
+.userName{
+  margin-top: 10px;
+}
+.logoImage {
+  height: 60px;
+}
+
+.leaveBtn {
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* code mirror */
+.CodeMirror
+{
+    min-height: calc(100vh - 20px);
+    font-size: 20px;
+    line-height: 1.6;
+    padding-top: 20px;
+
+}
+.connected{
+  color: #2b824c;
+  font-size: larger;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  
+}
+.copyBtn{
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  background: #eee;
+  color: #353844;
+  cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+
