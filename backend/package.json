@@ -20,11 +20,14 @@
     "uuid": "^9.0.1",
     "web-vitals": "^2.1.4"
   },
-
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
-  },
+    
+      "start": "npm run build && npm run server:prod",
+ 
+    "server:dev": "nodemon server.js",
+    "server:prod": "node server.js",
+      "eject": "react-scripts eject"
+   },
   "eslintConfig": {
     "extends": [
       "react-app",
