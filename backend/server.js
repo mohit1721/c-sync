@@ -129,14 +129,15 @@ const express = require('express');
 const app = express();
 const http = require('http');
 const { Server } = require('socket.io');
-const ACTIONS = require('./src/Actions');
+const ACTIONS = require('../src/Actions');
 const path = require('path');
 
 const server = http.createServer(app);
 const io = new Server(server);
 
+//
 app.use(express.static('build'));
-//page refresh ....3:43:00
+//page refresh ....3:43:00-->page refresh..krne se server pe koi v request h..index.html ko serve kr dena
 app.use((req, res, next) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
