@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "codemirror": "^5.65.16",
     "concurrently": "^8.2.2",
+    "cors": "^2.8.5",
     "express": "^4.19.2",
     "react": "^18.2.0",
     "react-avatar": "^5.0.3",
@@ -23,7 +24,7 @@
   "scripts": {
     "start:front": "react-scripts start",
     "start": "npm run build && npm run server:prod",
-    "build": "react-scripts build", 
+    "build": "react-scripts build",
     "server:dev": "nodemon server.js",
     "server:prod": "node server.js",
     "eject": "react-scripts eject"

@@ -131,10 +131,15 @@ const http = require('http');
 const { Server } = require('socket.io');
 const ACTIONS = require('../src/Actions');
 const path = require('path');
-
+const cors = require("cors");
 const server = http.createServer(app);
 const io = new Server(server);
-
+app.use(
+    cors({
+      origin:[ "http://localhost:5000", "https://codes-sync.vercel.app/",""],//"*",  //FOR FRONTEND..//  methods: ["GET", "POST", "PUT", "DELETE"],..VVI..to entertain frontend req.[[http://localhost:3000]] -->:["http://localhost:3000","https://mystudynotion.vercel.app","https://study1-jlkmw7ckr-mohit1721s-projects.vercel.app"], --------------------------["https://mystudynotion.vercel.app"]  
+      credentials: true,
+    })
+  );
 //
 app.use(express.static('build'));
 //page refresh ....3:43:00-->page refresh..krne se server pe koi v request h..index.html ko serve kr dena
