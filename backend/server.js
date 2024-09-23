@@ -124,16 +124,18 @@
 
 
 ///
-
+const dotenv = require("dotenv");
 const express = require('express');
 const app = express();
 const http = require('http');
 const { Server } = require('socket.io');
-const ACTIONS = require('../src/Actions');
+const ACTIONS = require('./Actions');
 const path = require('path');
 const cors = require("cors");
 const server = http.createServer(app);
 const io = new Server(server);
+dotenv.config();//load dotenv config
+const PORT = process.env.PORT || 5000;
 app.use(
     cors({
       origin:[ "http://localhost:5000", "https://codes-sync.vercel.app/",""],//"*",  //FOR FRONTEND..//  methods: ["GET", "POST", "PUT", "DELETE"],..VVI..to entertain frontend req.[[http://localhost:3000]] -->:["http://localhost:3000","https://mystudynotion.vercel.app","https://study1-jlkmw7ckr-mohit1721s-projects.vercel.app"], --------------------------["https://mystudynotion.vercel.app"]  
@@ -149,6 +151,8 @@ app.use((req, res, next) => {
 
 const userSocketMap = new Map();
 //const userSocketMap2={};
+// getAllConnectedClients: Yeh function specific room mein connected clients ko return karta hai. 
+// Is function se aapko room ke saare connected users ke socket IDs aur usernames milte hain.
 function getAllConnectedClients(roomId) {
     return Array.from(io.sockets.adapter.rooms.get(roomId) || []).map((socketId) => {
         return {
@@ -157,7 +161,8 @@ function getAllConnectedClients(roomId) {
         };
     });
 }
-
+// io.on('connection'): Jab bhi koi naya client connect karta hai, yeh event trigger hota hai. 
+// Har connected client ka unique socket ID generate hota hai, jo aap socket.id se access kar sakte ho.
 io.on('connection', (socket) => {
     console.log('socket connected', socket.id);
 
@@ -167,7 +172,10 @@ io.on('connection', (socket) => {
 
         const clients = getAllConnectedClients(roomId);
         console.log('Clients', clients);
-
+// socket.on(ACTIONS.JOIN): Jab koi client room join karta hai, roomId aur username server ko bheje jaate hain. Yeh client ko us specific room mein add karta hai (socket.join(roomId)).
+// userSocketMap.set(): Socket ID aur username ko userSocketMap mein store karta hai.
+// getAllConnectedClients(roomId): Room ke andar sabhi connected clients ki list retrieve karta hai.
+// clients.forEach(): Har connected client ko event send kiya jaata hai, notifying them that a new user has joined.
         clients.forEach(({ socketId }) => {
             io.to(socketId).emit(ACTIONS.JOINED, {
                 clients,
@@ -176,11 +184,13 @@ io.on('connection', (socket) => {
             });
         });
     });
-
+    //  Code Change Broadcasting:
+//  Jab ek client apna code change karta hai, toh yeh code room ke sabhi clients ko broadcast hota hai (socket.to(roomId) ensures that the code change is broadcasted to everyone except the sender).
     socket.on(ACTIONS.CODE_CHANGE, ({ roomId, code }) => {
         socket.to(roomId).emit(ACTIONS.CODE_CHANGE, { code });
     });
-
+    // Code Sync for New Users:
+// ACTIONS.SYNC_CODE: Jab koi new user join karta hai, to usko updated code provide karna hota hai. Is event ke through existing users apna code us new user ke socket ID par bhej dete hain.
     socket.on(ACTIONS.SYNC_CODE, ({ socketId, code }) => {
         io.to(socketId).emit(ACTIONS.CODE_CHANGE, { code });
     });
@@ -201,6 +211,6 @@ io.on('connection', (socket) => {
     });
 });
 
-const PORT = process.env.PORT || 5000;
+
 server.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 
