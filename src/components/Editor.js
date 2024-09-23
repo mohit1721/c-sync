@@ -7,6 +7,10 @@ import 'codemirror/addon/edit/closetag';
 import 'codemirror/addon/edit/closebrackets';
 import ACTIONS from '../Actions';
 const Editor = ({socketRef,roomId,onCodeChange}) => {
+    // socketRef: Ek reference jo socket connection ko hold karta hai.
+// roomId: Room ka ID jisme code share ho raha hai.
+// onCodeChange: Callback jo parent ko code change notify karta hai
+
 const editorRef=useRef(null);
 
     useEffect(()=>{
@@ -43,13 +47,10 @@ const editorRef=useRef(null);
 
                     }) 
                 }
-        //    
-                console.log(code);
+          
+                // console.log(code);
            
             })
-
-          
-
         }
         init();
     },[])

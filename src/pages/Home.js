@@ -41,8 +41,6 @@ const handleInputEnter = (e) => {
     }
 };
 
-
-
   return (
     <div className='homePageWrapper'>
 <div className='formWrapper'>

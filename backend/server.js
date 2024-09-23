@@ -194,9 +194,16 @@ io.on('connection', (socket) => {
     socket.on(ACTIONS.SYNC_CODE, ({ socketId, code }) => {
         io.to(socketId).emit(ACTIONS.CODE_CHANGE, { code });
     });
-
+ 
     socket.on('disconnecting', () => {
-        const rooms = [...socket.rooms];
+        //socket.rooms:In Socket.io, when a user connects to the server, they can join multiple rooms. Each socket connection has a rooms property that keeps track of all the rooms the socket is currently in.
+// This rooms property is typically a Set, which means it automatically handles unique entries (i.e., a socket cannot be in the same room multiple times).
+      
+const rooms = [...socket.rooms];//creates a new array rooms that contains all the room IDs the socket is currently a part of.
+     
+// this line is particularly useful when you need to notify all clients in a room when a user is disconnecting. 
+        // By converting the Set to an array, you can easily iterate over each room and emit the appropriate events to inform other users.
+     
         rooms.forEach((roomId) => {
             socket.to(roomId).emit(ACTIONS.DISCONNECTED, {
                 socketId: socket.id,
@@ -205,8 +212,12 @@ io.on('connection', (socket) => {
         });
         userSocketMap.delete(socket.id);
     });
-
-    socket.on('disconnect', () => {
+// Reasons for Having Both:
+// Timing of Events:
+// disconnecting Event: This event is triggered when the socket is in the process of disconnecting but before it is actually removed from the server. It allows you to perform actions (like notifying other users) just before the socket is fully disconnected.
+// disconnect Event: This event is triggered after the socket has been fully disconnected. At this point, you can safely clean up any remaining references or data related to that socket, like removing it from the userSocketMap.
+   
+socket.on('disconnect', () => {
         userSocketMap.delete(socket.id);
     });
 });
@@ -214,3 +225,5 @@ io.on('connection', (socket) => {
 
 server.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 
+// In the disconnecting event, you may want to inform other users that someone is leaving the room.
+// In the disconnect event, you finalize cleanup operations (like deleting the user from the map), ensuring no references to the disconnected socket remain.
