@@ -1,6 +1,6 @@
 import {io} from 'socket.io-client'
-const dotenv = require("dotenv");
-dotenv.config();
+// const dotenv = require("dotenv");
+// dotenv.config();
 export const initSocket=async()=>{
     const options = {
         'force new connection': true,
