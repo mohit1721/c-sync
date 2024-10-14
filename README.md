@@ -1,4 +1,4 @@
-DEPLOYED LINK--> (https://codes-sync.vercel.app/)
+DEPLOYED LINK--> (https://codes-sync.vercel.app/).
 
 
 # Getting Started with Create React App
